@@ -1,0 +1,20 @@
+-
+  name: Deployment
+  hosts: servers
+  become: yes
+  tasks:
+    - name: nginx-install
+      apt:
+        name: nginx
+        state: latest
+
+    - name: nginx-start
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: deploy-app
+      copy:
+        src: ../index.html
+        dest: /var/www/html/
